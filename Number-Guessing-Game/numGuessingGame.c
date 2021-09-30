@@ -84,3 +84,94 @@ define is_q function as boolean, param: int num
 */
 
 /* start of code */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int menu(); // declare function
+
+void main()
+{
+   int user_option;
+   user_option = menu();
+
+   const int MAX_VALUE = 100;
+   time_t t;
+   int max_num = 10, random, temp_int;
+   char user_num[5];
+
+   srand((unsigned)time(&t));
+   random = (rand() % max_num) + 1;
+
+   do
+   {
+      if (user_option == 1)
+      {
+         printf("Press q to quit game\n");
+         printf("Enter number between 1 - %d\n", max_num);
+         scanf("%s", &user_num);
+
+         do
+         {
+            if (user_num[0] == 'q')
+               break;
+
+            temp_int = strtod(user_num, NULL);
+
+            if (temp_int > random)
+               printf("Too High. ");
+            else //(temp_int < random)
+               printf("Too Low. ");
+
+            printf("Guess Again: ");
+            scanf("%s", user_num);
+
+            temp_int = strtod(user_num, NULL);
+
+         } while (temp_int != random);
+
+         if (temp_int == random)
+            printf("Congrats! The random number was: %d\n", random);
+         random = (rand() % max_num) + 1;
+         user_option = menu();
+      }
+
+      else if (user_option == 2)
+      {
+         printf("The max value you can set to is %d.\nEnter new max value: ", MAX_VALUE);
+         scanf("%d", &max_num);
+
+         while (max_num < 0 || max_num > MAX_VALUE)
+         {
+            printf("Invalid Update. \nReenter max value: ");
+            scanf("%d", &max_num);
+         }
+
+         printf("Max value changed to %d\n\n", max_num);
+         user_option = menu();
+      }
+
+      else
+      {
+         printf("Thanks for playing!");
+         break;
+      }
+   } while (user_option == 1 || user_option == 2 || user_option == 3);
+}
+
+int menu()
+{
+   int user_input;
+
+   printf("\nMenu\nPress 1 to play a game\nPress 2 to change the max number\nPress 3 to quit\n");
+   scanf("%d", &user_input);
+
+   while (user_input != 1 && user_input != 2 && user_input != 3)
+   {
+      printf("Invalid Option. Pick option 1, 2, or 3.\n");
+      scanf("%d", &user_input);
+   }
+
+   return user_input;
+}
