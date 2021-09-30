@@ -27,3 +27,33 @@ return 0;
 */
 
 /* start of code */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main()
+{
+   time_t t;
+   char *meal[] = {"Salad", "Soup", "Sandwich", "Pizza"};
+   float cost[] = {9.95, 4.55, 13.25, 22.35};
+   float tax, tip, tax_total, tip_total, meal_total;
+   int random;
+
+   srand((unsigned)time(&t));
+   random = rand() % 4;
+
+   printf("Enter tax percent: ");
+   scanf("%f", &tax);
+   printf("Enter tip percent: ");
+   scanf("%f", &tip);
+
+   tax_total = (tax / 100.0) * cost[random];
+   tip_total = (tip / 100.0) * cost[random];
+   meal_total = cost[random] + tax_total + tip_total;
+
+   printf("\nBILL\n===============\n");
+   printf("%s: $%.2f\nTax: $%.2f\ntip: $%.2f\nTotal: $%.2f\n\n", meal[random], cost[random], tax_total, tip_total, meal_total);
+
+   return 0;
+}
