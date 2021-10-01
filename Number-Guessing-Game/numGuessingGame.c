@@ -156,7 +156,7 @@ void main()
          printf("The max value you can set to is %d.\nEnter new max value: ", MAX_VALUE);
          scanf("%d", &max_num);
 
-         while (max_num < 0 || max_num > MAX_VALUE)
+         while (max_num < 1 || max_num > MAX_VALUE)
          {
             printf("Invalid Update. \nReenter max value: ");
             scanf("%d", &max_num);
