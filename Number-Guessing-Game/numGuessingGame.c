@@ -88,6 +88,7 @@ define is_q function as boolean, param: int num
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 int menu(); // declare function
 
@@ -96,6 +97,8 @@ void main()
    int user_option;
    user_option = menu();
 
+   FILE *out;
+   FILE *exist;
    const int MAX_VALUE = 100;
    time_t t;
    int max_num = 10, random, temp_int;
@@ -103,6 +106,17 @@ void main()
 
    srand((unsigned)time(&t));
    random = (rand() % max_num) + 1;
+
+   if (exist = fopen("maxNumber.dat", "w")) //check if file exists
+   {
+      fscanf(exist, "%d", max_num); //assign max_num with current value
+     // printf("File exists.");
+   }
+   else //else create file, assign default num
+   {
+      out = fopen("maxNumber.dat", "w");
+      fprintf(out, "%d", max_num);
+   }
 
    do
    {
@@ -148,7 +162,10 @@ void main()
             scanf("%d", &max_num);
          }
 
-         printf("Max value changed to %d\n\n", max_num);
+         out = fopen("maxNumber.dat", "w");  //overwrites file
+         fprintf(out, "%d", max_num);        //update with new user max number
+
+         printf("Max value changed to %d\n\n", max_num);    //validation
          user_option = menu();
       }
 
@@ -158,6 +175,9 @@ void main()
          break;
       }
    } while (user_option == 1 || user_option == 2 || user_option == 3);
+
+   fclose(out);
+   fclose(exist);
 }
 
 int menu()
